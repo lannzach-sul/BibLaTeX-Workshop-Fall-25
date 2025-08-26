@@ -1,0 +1,322 @@
+\documentclass{article}
+
+% Language setting
+\usepackage[english]{babel}
+
+% Set page size and margins
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[backend=biber]{biblatex}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{csquotes}
+\usepackage{tabto}
+\usepackage{multicol}
+\usepackage{minted}
+\usemintedstyle{vs}
+\addbibresource{sample.bib}
+
+\title{BibLaTeX, Overleaf, and Zotero: Notes}
+\author{Zach Lannes, Alex Manchester}
+
+\begin{document}
+\maketitle
+
+\newrefsegment
+\section{Introduction}
+
+We have compiled the notes for this section in \LaTeX{} in order to "walk the walk" and demonstrate good practice in BibLaTeX. Feel free to review and share this outline with others as needed. For further questions, reach out at \texttt{lannzach@stanford.edu}.
+
+\section{On LaTeX Citation Structure}
+
+\subsection{Separate Files, Greater Flexibility}
+
+Technically, it is possible to include references via text entry in a primary document made using LaTeX; however, we do not recommend this for reasons that will soon become apparent.
+
+The common practice of bibliography management in LaTeX is to store all references in a separate file with the \texttt{.bib} extension. In the same way that LaTeX allows us to efficiently and demonstrably mark up our work, this separate-file approach enables us to reference works quickly, sort and separate the components of our bibliographies, and adapt them to a variety of styles with minimal extra work. Below, we cover setup, style, and use-cases for \texttt{.bib} files and the BibLaTeX package.
+
+\subsection{Setup}
+
+Some commands and calls are required to setup a document for BibLaTeX use:
+\begin{itemize}
+    \item In the preamble (start) of the document, include the call \mintinline{latex}|\usepackage[backend=biber]{biblatex}| following other \mintinline{latex}|\usepackage| calls
+    \item Following the \mintinline{latex}{\usepackage} calls, add the command \mintinline{latex}{\addbibresource{bibfilename.bib}}
+        \begin{itemize}
+            \item This links the \mintinline{latex}{.bib} file in the directory to the \mintinline{latex}{main.tex} document
+        \end{itemize}
+\end{itemize}
+
+\subsection{\texttt{.bib} File Structure}
+Put simply, a \mintinline{latex}{.bib} file is a collection of individual references separated by whitespace. Similar to the components of \mintinline{latex}{.tex} files, these references follow a specific structure that makes their readability and recall clear and extensible.
+
+Below is a generic entry to demonstrate the structure of a \texttt{.bib} reference item:
+\begin{minted}{latex}
+    @citationtype{label_name,
+    	field1 = “value1”,
+    	field2 = “value2”,
+    	…
+    	fieldN = “valueN”
+        }
+\end{minted}
+
+And now, for some clarification:
+
+%Get help from Alex with figure handling
+\begin{itemize}
+    \item \mintinline{latex}{citationtype} has a collection of supported entries:
+    \begin{multicols}{4}
+    \begin{itemize} \tt
+        \item article
+        \item book
+        \item mvbook
+        \item inbook
+        \item bookinbook
+        \item suppbook
+        \item booklet
+        \item collection
+        \item mvcollection
+        \item incollection
+        \item suppcollection
+        \item manual
+        \item misc
+        \item online
+        \item patent
+        \item periodical
+        \item suppperiodical
+        \item proceedings
+        \item mvproceedings
+        \item inproceedings
+        \item reference
+        \item mvreference
+        \item inreference
+        \item report
+        \item set
+        \item thesis
+        \item unpublished
+        \item custom
+        \item conference
+        \item electronic
+        \item mastersthesis
+        \item phdthesis
+        \item techreport
+        \item datatype
+    \end{itemize}
+    \end{multicols}
+            % \begin{table}[]
+            %     \centering
+            %     \begin{tabular}{|l|l|l|}
+            %         \hline
+            %         article       & book           & mvbook       \\ \hline
+            %         inbook        & bookinbook     & suppbook     \\ \hline
+            %         booklet       & collection     & mvcollection \\ \hline
+            %         incollection  & suppcollection & manual       \\ \hline
+            %         misc          & online         & patent       \\ \hline
+            %         periodical    & suppperiodical & proceedings  \\ \hline
+            %         mvproceedings & inproceedings  & reference    \\ \hline
+            %         mvreference   & inreference    & report       \\ \hline
+            %         set           & thesis         & unpublished  \\ \hline
+            %         custom        & conference     & electronic   \\ \hline
+            %         mastersthesis & phdthesis      & techreport   \\ \hline
+            %         datatype      &                &              \\ \hline
+            %     \end{tabular}
+            % \end{table}
+    \item The fields of a citation have a collection of supported entries:
+    \begin{multicols}{4}
+    \begin{itemize} \tt
+        \item abstract
+        \item afterword
+        \item annotation
+        \item annotator
+        \item author
+        \item authortype
+        \item bookauthor
+        \item bookpagination
+        \item booksubtitle
+        \item booktitle
+        \item chapter
+        \item commentator
+        \item date
+        \item doi
+        \item edition
+        \item editor
+        \item editortype
+        \item eid
+        \item entrysubtype
+        \item eprint
+        \item eprinttype
+        \item eprintclass
+        \item eventdate
+        \item eventtitle
+        \item file
+        \item foreward
+        \item holder
+        \item howpublished
+        \item indextitle
+        \item institution
+        \item introduction
+        \item isan
+        \item isbn
+        \item ismn
+        \item isrn
+        \item issue
+        \item issuesubtitle
+        \item issuetitle
+        \item iswc
+        \item journalsubtitle
+        \item journaltitle
+        \item label
+        \item language
+        \item library
+        \item location
+        \item mainsubtitle
+        \item maintitle
+        \item month
+        \item note
+        \item number
+        \item organization
+        \item origdate
+        \item origlanguage
+        \item origlocation
+        \item origpublisher
+        \item origtitle
+        \item pages
+        \item pagetotal
+        \item pagination
+        \item part
+        \item publisher
+        \item pubstate
+        \item reprinttitle
+        \item series
+        \item shortauthor
+        \item shortedition
+        \item shorthand
+        \item shorthandintro
+        \item shortjournal
+        \item shortseries
+        \item shorttitle
+        \item subtitle
+        \item title
+        \item translator
+        \item type
+        \item url
+        \item venue
+        \item version
+        \item volume
+        \item year
+    \end{itemize}
+    \end{multicols}
+        % \begin{table}[]
+        %     \centering
+        %     \begin{tabular}{|l|l|l|l|}
+        %     \hline
+        %     abstract      & afterword    & annotation    & annotator       \\ \hline
+        %     author        & authortype   & bookauthor    & bookpagination  \\ \hline
+        %     booksubtitle  & booktitle    & chapter       & commentator     \\ \hline
+        %     date          & doi          & edition       & editor          \\ \hline
+        %     editortype    & eid          & entrysubtype  & eprint          \\ \hline
+        %     eprinttype    & eprintclass  & eventdate     & eventtitle      \\ \hline
+        %     file          & foreword     & holder        & howpublished    \\ \hline
+        %     indextitle    & institution  & introduction  & isan            \\ \hline
+        %     isbn          & ismn         & isrn          & issue           \\ \hline
+        %     issuesubtitle & issuetitle   & iswc          & journalsubtitle \\ \hline
+        %     journaltitle  & label        & language      & library         \\ \hline
+        %     location      & mainsubtitle & maintitle     & month           \\ \hline
+        %     note          & number       & organization  & origdate        \\ \hline
+        %     origlanguage  & origlocation & origpublisher & origtitle       \\ \hline
+        %     pages         & pagetotal    & pagination    & part            \\ \hline
+        %     publisher     & pubstate     & reprinttitle  & series          \\ \hline
+        %     shortauthor   & shortedition & shorthand     & shorthandintro  \\ \hline
+        %     shortjournal  & shortseries  & shorttitle    & subtitle        \\ \hline
+        %     title         & translator   & type          & url             \\ \hline
+        %     venue         & version      & volume        & year            \\ \hline
+        %     \end{tabular}
+        % \end{table}
+    \item \mintinline{latex}{label_name} is a shorthand used to call references in a main document. Take note of this field, as we will use it shortly.
+\end{itemize}
+
+\section{A First Citation Example}
+
+For the purposes of an example, we will use a citation to the book \textit{Microsound} \cite{microsound} by Curtis Roads
+
+\subsection{In-text Citations}
+
+%Get help from Alex with text wrapping - DONE
+As you may have noticed, we have a citation number directly following \textit{Microsound} above. To demonstrate how we did this, let's look at the bibliography entry and command used to create an in-text citation. First, our entry for the citation in the \texttt{.bib} file looks like this:
+    \begin{minted}[breaklines]{latex}
+    @book{microsound,
+    	location = {Cambridge, Massachusetts},
+    	title = {Microsound},
+    	isbn = {978-0-262-18215-7},
+    	url = {https://mitpress.mit.edu/9780262681544/microsound/},
+    	publisher = {The {MIT} Press},
+    	author = {Roads, Curtis},
+    	urldate = {2025-07-17},
+    	date = {2001-01-01},
+    	keywords = {Computer music--History and criticism, Electronic music--History and criticism, {MUSIC} / Genres \& Styles / Electronic, Music--Acoustics and physics},
+    }
+    \end{minted}
+
+To call the citation, we will use the \mintinline{latex}{\cite{label_name}} command. Remember, from above, we will replace \texttt{label\_name} in our citation with the first field of our bibliography entry -- In this case, it is \texttt{microsound}. So the command used is \mintinline{latex}{\cite{microsound}}.
+%NOTE FROM ALEX - you might want to cite multiple things (maybe even out of order with relation to the (alphabetized) bibliography) to demonstrate the automatic numbering
+
+\subsection{Printing a Bibliography}
+A natural next question would be "how do we print a full reference (or set of references)?" Luckily, BibLaTeX makes this process straightforward. The basic command to print a bibliography is \mintinline{latex}|\printbibliography|. Below we demonstrate the output of this call:
+
+\printbibliography[segment=1]
+
+\newrefsegment
+By default, BibLaTeX will print only the references we made in our document in the order we cited them. Currently, this reflects our single reference to \textit{Microsound}; however, there are a variety of ways to format and cite our bibliography.
+
+First, we will cite another item: \textit{The Ratio Book: Proceedings of The Ratio Symposium} \cite{ratiobook} (along with Roads \cite{microsound}) and then print our bibliography once again:
+\printbibliography[segment=2]
+
+Now we see two items printed instead of our single one above. While this initial sorting of our documents is a good start, what if we want to change the organization and/or citation style of our references? Luckily \LaTeX (and BibLaTeX) have inbuilt commands for this.
+As an example, suppose we want to change our citation style to APA. We would return to the \mintinline{latex}|\usepackage[backend=biber]{biblatex}| command and reformat it as: 
+\begin{minted}{latex}
+    \usepackage[backend=biber,style=apa]{biblatex}
+\end{minted}
+This \mintinline{latex}|style| call allows us to print our bibliography and inline citation styles in any number of generic or officially recognized bibliographic styles. To see a comprehensive list of supported options on overleaf, check the \href{https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles}{biblatex reference page}.
+
+\newrefsegment
+\section{Zotero and Overleaf}
+\subsection{Zotero Setup}
+Zotero is a reference manager, a piece of software that automates reference creation and bibliography generation. We recommend Zotero as it is free and open-source software that is easy to use and quite effective.
+
+For the purposes of this workshop, you will need to install Zotero and the connector for your browser of choice. You will also need to create a Zotero account.
+\subsection{Zotero Tips and Tricks}
+There are some best approaches to gathering sources using Zotero:
+\begin{itemize}
+    \item To easily import an item into a Zotero folder/library, open the program and select a location, then click the document icon in the top right hand corner of the browser
+    \item Make sure there is a ready link to a pdf of the desired work on the page when using the browser connector. This ensures Zotero will more cleanly extract both the document itself and its metadata.
+    \item DOUBLE CHECK THE EXTRACTED METADATA! Zotero is good but not perfect at reference extraction. Don't get caught with inaccurate references (and save yourself an email ten years in the future).
+\end{itemize}
+\subsection{Linking Accounts}
+While we can use Zotero to export \mintinline{latex}{.bib} files and move them into our Overleaf projects, we have access to the Overleaf premium feature of linking our accounts across the two platforms (as all Stanford users have Overleaf premium accounts via their stanford.edu email addresses).
+To link these accounts, do the following
+\begin{enumerate}
+    \item Go to the home menu (by clicking the home icon in the top left corner of your project window).
+    \item Click the account icon (the icon of a person in the bottom left corner).
+    \item Scroll down until the "reference manager" section of the settings is visible.
+    \item Click link next to the Zotero icon.
+    \item Log in to your Zotero account and accept the link from Overleaf.
+\end{enumerate}
+We have now linked our Zotero and Overleaf accounts. To easily reference our saved items in Zotero, we must select the appropriate Zotero libraries in Overleaf project.
+To do so, do the following:
+\begin{enumerate}
+    \item Open your Overleaf project.
+    \item Click the Overleaf menu icon in the top-left corner.
+    \item Click the "Settings" icon next to "Reference Search."
+    \item Make sure "Advanced Reference Search" is selected and choose the appropriate libraries from the dropdown menu below it.
+\end{enumerate}
+\subsection{Automated Bibliography Creation}
+Perhaps counterintuitively, Overleaf allows us to cite items from our Zotero account that we have not yet added to our bibliography. The beauty of this approach is that Overleaf autogenerates a bibliography item after we call for its citation.
+As an example, we will cite an article by Leventhal\cite{leventhal_chamber_2014}
+
+Once we select the appropriate item, we should see a message indicating that an item was added from our Zotero library to our \mintinline{latex}{.bib} file.
+
+%New sections: custom labels, culminate in showing github and zotero linkage
+%Need: shared Zotero group to demonstrate the process
+
+\end{document}
