@@ -267,12 +267,12 @@ A natural next question would be "how do we print a full reference (or set of re
 \printbibliography[segment=1]
 
 \newrefsegment
-By default, BibLaTeX will print only the references we made in our document in the order we cited them. Currently, this reflects our single reference to \textit{Microsound}; however, there are a variety of ways to format and cite our bibliography.
+By default, BibLaTeX will print only the references we made in our document (please note: in the interest of readability, we have used some behind-the-scenes \LaTeX \space magic to control our bibliography printing across this document). Currently, this reflects our single reference to \textit{Microsound}; however, there are a variety of ways to format and cite our bibliography.
 
 First, we will cite another item: \textit{The Ratio Book: Proceedings of The Ratio Symposium} \cite{ratiobook} (along with Roads \cite{microsound}) and then print our bibliography once again:
 \printbibliography[segment=2]
 
-Now we see two items printed instead of our single one above. While this initial sorting of our documents is a good start, what if we want to change the organization and/or citation style of our references? Luckily \LaTeX (and BibLaTeX) have inbuilt commands for this.
+Now we see two items printed instead of our single one above. While this initial sorting of our documents is a good start, what if we want to change the organization and/or citation style of our references? Luckily \LaTeX \space (and BibLaTeX) have inbuilt commands for this.
 As an example, suppose we want to change our citation style to APA. We would return to the \mintinline{latex}|\usepackage[backend=biber]{biblatex}| command and reformat it as: 
 \begin{minted}{latex}
     \usepackage[backend=biber,style=apa]{biblatex}
